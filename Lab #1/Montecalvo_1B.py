@@ -20,6 +20,7 @@ netPay: grossPay after samsShare tax deduction
 
 """
 #-----------------------------------------------------------
+
 # Vars
 hourlyPay = 14.5
 hoursPerWeek = 32
