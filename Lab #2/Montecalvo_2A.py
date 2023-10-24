@@ -1,6 +1,6 @@
 """
 Name: Landon Montecalvo
-Lab #: Lab 1A
+Lab #: Lab 2A
 Date: 10.24.2023
 Course: Programming Essentials with Python; SE116.11
 
@@ -28,16 +28,20 @@ newVideoSpace: average video space of OS videos
 availableSpace: space tha isn't used in database
 normalVideoSpacePerWeek: how much space do how-to videos take per week
 newVideoSpacePerWeek: how much space do OS videos take per week
+weeksOfNormalVideosLeft: how many weeks are left of how-to video storage
+weeksOfNewVideosLeft: how many weeks are left of OS video storage
+daysOfNormalVideosLeft: how many days are left of how-to video storage
+daysOfNewVideosLeft: how many days are left of OS video storage
 
 """
 #-----------------------------------------------------------
 
 # Vars
-videoCount = int(input("Please enter number of videos already in your database: "))
-usedSpace = float(input("Please enter total used space (TB): "))
-totalSpace = float(input("Please enter total space (TB): "))
-videosPerWeek = int(input("Please enter videos per week: "))
-avgVideoSpace = float(input("Please enter average video space (GB): ")) / 1000 
+videoCount = 520
+usedSpace = 1.4
+totalSpace = 8
+videosPerWeek = 15
+avgVideoSpace = 5.6 / 1000 
 
 # Calculations
 newVideoSpace = avgVideoSpace * 3
