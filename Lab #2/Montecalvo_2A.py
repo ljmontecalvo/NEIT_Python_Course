@@ -19,5 +19,36 @@ on the NAS. [Note: this means you will have two possibilities for days left of s
 
 Variable Dictionary:
 
+videoCount: video count
+usedSpace: used space
+totalSpace: total space
+videosPerWeek: videos per week
+avgVideoSpace: average How-To video space
+newVideoSpace: average video space of OS videos
+availableSpace: space tha isn't used in database
+normalVideoSpacePerWeek: how much space do how-to videos take per week
+newVideoSpacePerWeek: how much space do OS videos take per week
+
 """
 #-----------------------------------------------------------
+
+# Vars
+videoCount = int(input("Please enter number of videos already in your database: "))
+usedSpace = float(input("Please enter total used space (TB): "))
+totalSpace = float(input("Please enter total space (TB): "))
+videosPerWeek = int(input("Please enter videos per week: "))
+avgVideoSpace = float(input("Please enter average video space (GB): ")) / 1000 
+
+# Calculations
+newVideoSpace = avgVideoSpace * 3
+availableSpace = totalSpace - usedSpace
+normalVideoSpacePerWeek = videosPerWeek * avgVideoSpace
+newVideoSpacePerWeek = videosPerWeek * newVideoSpace
+weeksOfNormalVideosLeft = availableSpace / normalVideoSpacePerWeek
+weeksOfNewVideosLeft = availableSpace / newVideoSpacePerWeek
+daysOfNormalVideosLeft = weeksOfNormalVideosLeft * 7
+daysOfNewVideosLeft = weeksOfNewVideosLeft * 7
+
+# Outputs
+print("You have {0:.1f} days left of How-To Videos.".format(daysOfNormalVideosLeft))
+print("You have {0:.1f} days left of OS Videos.".format(daysOfNewVideosLeft))
