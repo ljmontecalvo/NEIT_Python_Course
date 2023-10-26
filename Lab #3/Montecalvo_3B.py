@@ -16,20 +16,25 @@ decimal places.
 
 Variable Dictionary:
 
-
+items: a list of items that the user purchased
+itemCost: user inputed cost for an item
+response: lets the user loop through the scipt to add more items
+total: total amount of money the user ows
+money: the amount of money that the user will be paying with
+change: the change that the user gets after purchase
 
 """
 #-----------------------------------------------------------
 
-items = []
+items = [] # List to hold items.
 
-def CreateItem():
+def CreateItem(): # Function to add more items.
     itemCost = float(input("Please enter item cost: $"))
     items.append(itemCost)
 
 CreateItem()
 
-response = input("Would you like to add another item? (yes/no): ")
+response = input("Would you like to add another item? (yes/no): ") # Accept a loop response from the user.
 
 while (response.lower() == "yes"):
     CreateItem()
@@ -37,13 +42,13 @@ while (response.lower() == "yes"):
 
 total = 0
 
-for item in items:
+for item in items: # Add each item to a total variable.
     total += item
 
 print("Your total is ${0:.2f}".format(total))
 
-money = float(input("How much money will you be paying with? $"))
+money = float(input("How much money will you be paying with? $")) # Gets how much money the user will be paying with.
 
 change = money - total
 
-print("You purhcased {0} items, and your change is ${1:.2f}, have a nice day.".format(len(items), change))
+print("You purhcased {0} items, and your change is ${1:.2f}, have a nice day.".format(len(items), change)) # Final outut to the user.
