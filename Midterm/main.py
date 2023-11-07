@@ -1,75 +1,162 @@
+"""
+Name: Landon Montecalvo
+Midterm Project
+Date: 11.07.2023
+Course: Programming Essentials with Python; SE116.11
+
+Program Prompt: Make a project using the skills that we have cover in this class.
+
+Variable Dictionary:
+- `monsterHealth`: The current health of the monster in the fight.
+- `monsterDamageMin`: The minimum damage that the monster can deal in the fight.
+- `playerDamage`: The calculated player's attack damage for the current round.
+- `playerHealth`: The player's health in the game.
+- `monsterName`: The name of the monster in the fight.
+- `playAgain`: User input for playing the game again.
+- `frostclaw`: A boolean indicating if the player can fight the monster named "Frostclaw."
+- `venomspine`: A boolean indicating if the player can fight the monster named "Venomspine."
+- `billy`: A boolean indicating if the player can fight the monster named "Billy."
+- `inputs`: A string used to prompt the player for input.
+- `monsterToFight`: User input for selecting a monster to fight.
+"""
+#-----------------------------------------------------------
+
+# Imports for utilities.
 import random
+import sys
 
-monstersAvailable = [1, 2, 3] # Which monsters can the player fight?
-playerHealth = 100 # Init player health.
-playerDamageMin = 10 # Init minium amount of damage that player can do.
+# Import for the external variables script.
+import vars
 
-monstersInfo = {
-    "Frostclaw": {
-        "damage": 10,
-        "health": 90
-    },
-    "Venomspine": {
-        "damage": 20,
-        "health": 100
-    },
-    "Billy": {
-        "damage": 30,
-        "health": 120
-    }
-}
+# Imports for colored console text.
+from colorama import *
+from termcolor import colored
 
-def Fight(monsterNumber, monsterName):
-    monsterHealth = monstersInfo[monsterName]["health"] # Gets the current monster's health from the dictionary.
-    monsterDamage = monstersInfo[monsterName]["damage"] # Gets the current monster's health from the dictionary.
+init() # Function to initiate the library that does the console text coloring.
 
-    while playerHealth > 0:
-        while monsterHealth > 0 :
-            playerDamage = random.randint(playerDamageMin, playerDamageMin + 10)
-            print(f"{name} hit the {monsterName} for {playerDamage}!")
-            monsterHealth -= playerDamage
+# Fight runs the main part of the game that allows the player to attack the monster and the monster to attack the player.
+def Fight(monsterName):
+    monsterHealth = vars.monstersInfo[monsterName]["health"] # Gets the current monster's health from the dictionary.
+    monsterDamageMin = vars.monstersInfo[monsterName]["damage"] # Gets the current monster's health from the dictionary.
 
-            monsterDamage = random.randint(monsterDamage, monsterDamage + 10)
-            print(f"The {monsterName} hit {name} for {monsterDamage}!")
-            playerHealth -= monsterDamage
+    while True: # Loops through the player and monster attack sequences.
+        # Player Attack Sequence
+        if vars.playerHealth > 0:
+            if monsterHealth > 0:
+                playerDamage = random.randint(vars.playerDamageMin, vars.playerDamageMin + 10) # Calculates the player's attack damage for this round.
+                monsterHealth -= playerDamage
+                print(f"\n{name} hit the {monsterName} for {playerDamage}!")
 
-    print("Uh-Oh! You died. Very sad.")
+                print(colored("\nScores:", "green"))
+                print(colored(f"\t{name} - {vars.playerHealth}", "blue"))
+                print(colored(f"\t{monsterName} - {monsterHealth}\n", "red"))
 
-    print()
+                input("Press [ENTER] to continue.")
+            else:
+                print(f"Wow! {name} killed the {monsterName}!")
+                input("Press [ENTER] to continue.\n")
+                vars.monstersAvailable.remove(monsterName) # Remove the monster name from the available list of monsters that the player is able to fight.
+                vars.playerHealth = 100
+                vars.playerDamageMin += 10
+                FightNewMonster() # Let the player pick a new monster.
+        else:
+            print(f"Uh-Oh! {name} died. Very sad.\n")
 
-    playAgain = input("Would you like to try again? (yes/no): ")
+            playAgain = input("Would you like to try again? (yes/no): ")
 
-    if playAgain.lower() == "yes": # Play again sequence logic.
-        # Resets original variables.
-        monstersAvailable = [1, 2, 3]
-        playerHealth = 100
-        playerDamageMin = 10
-        FightNewMonster()
-    else:
-        print()
-        print("Thank you for playing.")
-        
+            if playAgain.lower() == "yes": # Play again sequence logic.
+                # Resets original variables.
+                vars.monstersAvailable = ["Frostclaw", "Venomspine", "Billy"]
+                vars.playerHealth = 100
+                vars.playerDamageMin = 10
+                FightNewMonster() # Let the player pick a new monster.
+            else:
+                print("\nThank you for playing.")
+                sys.exit() # Exits the script in a lazy way.
+
+        # Monster Attack Sequence
+        if vars.playerHealth > 0:
+            if monsterHealth > 0:
+                monsterDamage = random.randint(monsterDamageMin, (monsterDamageMin + 10)) # Calculates the monster's attack damage for this round.
+                vars.playerHealth -= monsterDamage
+                print(f"\nThe {monsterName} hit {name} for {monsterDamage}!")
+
+                print(colored("\nScores:", "green"))
+                print(colored(f"\t{name} - {vars.playerHealth}", "blue"))
+                print(colored(f"\t{monsterName} - {monsterHealth}\n", "red"))
+
+                input("Press [ENTER] to continue.")
+            else:
+                print(f"Wow! {name} killed the {monsterName}!")
+                input("Press [ENTER] to continue.\n")
+                vars.monstersAvailable.remove(monsterName)
+                vars.playerHealth = 100
+                vars.playerDamageMin += 10
+                FightNewMonster()
+        else:
+            print(f"Uh-Oh! {name} died. Very sad.\n")
+
+            playAgain = input("Would you like to try again? (yes/no): ")
+
+            if playAgain.lower() == "yes": # Play again sequence logic.
+                # Resets original variables.
+                vars.monstersAvailable = ["Frostclaw", "Venomspine", "Billy"]
+                vars.playerHealth = 100
+                vars.playerDamageMin = 10
+                FightNewMonster()
+            else:
+                print("\nThank you for playing.")
+                return
 
 def FightNewMonster():
+    if len(vars.monstersAvailable) == 0:
+        print("Amazing, you completed the game.")
+        sys.exit()
+
     # List monster stats for player.
-    print(f"There are {len(monstersAvailable)} that you can fight.")
-    print(f"\tFrostclaw:\n\t\tMinimum Damage: 10\n\t\tHealth: 90")
-    print(f"\tVenomspine:\n\t\tMinimum Damage: 20\n\t\tHealth: 100")
-    print(f"\tBilly:\n\t\tMinimum Damage: 30\n\t\tHealth: 120")
+    print(f"There are {len(vars.monstersAvailable)} monsters that you can fight.")
+
+    # This section is the logic for which monsters to show in the menu based on what monsters the player has already fought.
+    frostclaw = False
+    venomspine = False
+    billy = False
+
+    for monster in vars.monstersAvailable:
+        if monster == "Frostclaw":
+            frostclaw = True
+        if monster == "Venomspine":
+            venomspine = True
+        if monster == "Billy":
+            billy = True
+
+    inputs = ""
+
+    # Concatenates a string to ask for input based on the monsters that list above.
+    if frostclaw:
+        print(f"\tFrostclaw:\n\t\tMinimum Damage: 10\n\t\tHealth: 90")
+        inputs += "\n\tA: Frostclaw"
+    if venomspine:
+        print(f"\tVenomspine:\n\t\tMinimum Damage: 20\n\t\tHealth: 100")
+        inputs += "\n\tB: Venomspine"
+    if billy:
+        print(f"\tBilly:\n\t\tMinimum Damage: 30\n\t\tHealth: 120")
+        inputs += "\n\tC: Billy"
+
+    inputs += "\nLetter: "
 
     print()
 
-    monsterToFight = input("Which monster would you like to fight?\n\tA: Frostclaw\n\tB:Venomspine\n\tC:Billy\nLetter: ") # Let player pick which monter they would like to fight.
+    monsterToFight = input(colored(inputs, "blue")) # Let player pick which monter they would like to fight.
 
     while not monsterToFight.lower() == "a" and not monsterToFight.lower() == "b" and not monsterToFight.lower() == "c": # Exception handling.
-        monsterToFight = input("Which monster would you like to fight?\n\tA: Frostclaw\n\tB:Venomspine\n\tC:Billy\nLetter: ")
+        monsterToFight = input(colored(inputs, "blue"))
     
     if monsterToFight.lower() == "a": # If player picks option a.
-        Fight(1, "Frostclaw")
+        Fight("Frostclaw")
     elif monsterToFight.lower() == "b": # If player picks option b.
-        Fight(2, "Venomspine")
+        Fight("Venomspine")
     else: # If player picks option c.
-        Fight(3, "Billy")
+        Fight("Billy")
 
-name = input("Please enter your player name: ") # Stores player's name.
+name = input(colored("Please enter your player name: ", "red")) # Stores player's name.
 FightNewMonster()
