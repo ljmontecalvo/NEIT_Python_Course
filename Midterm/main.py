@@ -44,7 +44,7 @@ def Fight(monsterName):
         if vars.playerHealth > 0:
             if monsterHealth > 0:
                 playerDamage = random.randint(vars.playerDamageMin, vars.playerDamageMin + 10) # Calculates the player's attack damage for this round.
-                monsterHealth -= playerDamage
+                monsterHealth -= playerDamage   
                 print(f"\n{name} hit the {monsterName} for {playerDamage}!")
 
                 print(colored("\nScores:", "green"))
