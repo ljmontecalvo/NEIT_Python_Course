@@ -54,6 +54,7 @@ def Fight(monsterName):
                 input("Press [ENTER] to continue.")
             else:
                 print(f"Wow! {name} killed the {monsterName}!")
+                print(f"\n{name}'s health and attack damage has been upgraded by 10 points.")
                 input("Press [ENTER] to continue.\n")
                 vars.monstersAvailable.remove(monsterName) # Remove the monster name from the available list of monsters that the player is able to fight.
                 vars.playerHealth = 100
@@ -88,6 +89,7 @@ def Fight(monsterName):
                 input("Press [ENTER] to continue.")
             else:
                 print(f"Wow! {name} killed the {monsterName}!")
+                print(f"\n{name}'s health and attack damage has been upgraded by 10 points.")
                 input("Press [ENTER] to continue.\n")
                 vars.monstersAvailable.remove(monsterName)
                 vars.playerHealth = 100
@@ -133,13 +135,13 @@ def FightNewMonster():
 
     # Concatenates a string to ask for input based on the monsters that list above.
     if frostclaw:
-        print(f"\tFrostclaw:\n\t\tMinimum Damage: 10\n\t\tHealth: 90")
+        print(f"\tFrostclaw (Easy):\n\t\tMinimum Damage: 10\n\t\tHealth: 90")
         inputs += "\n\tA: Frostclaw"
     if venomspine:
-        print(f"\tVenomspine:\n\t\tMinimum Damage: 20\n\t\tHealth: 100")
+        print(f"\tVenomspine (Medium):\n\t\tMinimum Damage: 20\n\t\tHealth: 100")
         inputs += "\n\tB: Venomspine"
     if billy:
-        print(f"\tBilly:\n\t\tMinimum Damage: 30\n\t\tHealth: 120")
+        print(f"\tBilly (Difficult):\n\t\tMinimum Damage: 30\n\t\tHealth: 120")
         inputs += "\n\tC: Billy"
 
     inputs += "\nLetter: "
