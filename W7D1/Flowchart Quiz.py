@@ -9,13 +9,13 @@ monthCount = 1
 month = year * 12
 rate /= 100
 
-print("Bank Balance     Interest     Ending Balance")
+print("Bank Balance  Interest  Ending Balance")
 
 while monthCount <= month:
     monthlyInterest = bankBalance * rate / 12
     endingBalance = bankBalance + monthlyInterest + monthlyDeposit
 
-    print("{0:10.2f}\t{1:10.2f}\t{2:10.2f}".format(bankBalance, monthlyInterest, endingBalance))
+    print("{0:10.2f}{1:10.2f}{2:10.2f}".format(bankBalance, monthlyInterest, endingBalance))
 
     bankBalance = endingBalance
 
