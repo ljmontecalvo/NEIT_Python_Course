@@ -27,4 +27,4 @@ while monthCount <= month:
 rate *= 100
 
 print("Initial Balance: ${0:.2f}\nMonthly Deopsit: ${1:.2f}\nYear: {2}\nRate: {3}\nEnding Balance: ${4:.2f}".format(initbankBalance, monthlyDeposit, year, rate, endingBalance))
-print("Year: {0}, Final Balance: ${1}".format(year, endingBalance))
+print("Year: {0}, Final Balance: ${1:.2f}".format(year, endingBalance))
