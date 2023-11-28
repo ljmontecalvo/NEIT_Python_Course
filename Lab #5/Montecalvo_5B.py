@@ -11,7 +11,6 @@ when entered by the user. If the IP address is not a Class A, B, or C, the user 
 and the IP address should still be reprinted. The user should be able to enter either a y or Y to
 continue the loop.
 
-
 Variable Dictionary:
 
 address: user input address
